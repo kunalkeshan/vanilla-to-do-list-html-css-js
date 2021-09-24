@@ -7,7 +7,33 @@
     <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
-    
+    <nav id="header">
+        <center><h1 class="header__title">To-Do List</h1></center>
+    </nav>
+    <section id="content">
+        <form id="addTaskForm" class="content__form">
+            <input type="text" class="content__input" id="addTaskInput" required>
+            <button type="submit" id="addTaskSubmit">Submit</button>
+        </form>
+        <form id="searchForm" class="content__form">
+            <input type="text" class="content__input" id="searchInput" required>
+        </form>
+        <ul id="taskList">
+            <li class="taskItem"><a class="taskName">Task 1</a></li>
+            <li class="taskItem"><a class="taskName">Task 2</a></li>
+            <li class="taskItem"><a class="taskName">Task 3</a></li>
+            <li class="taskItem"><a class="taskName">Task 4</a></li>
+            <li class="taskItem"><a class="taskName">Task 5</a></li>
+        </ul>
+    </section>
+    <footer id="footer"></footer>
+    <div id="taskEditModal">
+        <h3 class="modal__title">Edit Task</h3>
+        <label for="editTaskInput" class="modal__label">
+            <input type="text" id="editTaskInput" class="modal__input" required />
+        </label>
+            
+    </div>
     <script src="src/app.js"></script>
 </body>
 </html>
