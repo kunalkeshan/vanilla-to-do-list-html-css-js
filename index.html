@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List - Vanilla</title>
     <link rel="stylesheet" href="src/style.css">
+    <link
+    rel="stylesheet"
+    href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+    crossorigin="anonymous"
+    />
 </head>
 <body>
-    <nav id="header">
+    <header id="header" class="container">
         <center><h1 class="header__title">To-Do List</h1></center>
-    </nav>
-    <section id="content">
+    </header>
+    <section id="content" class="container">
         <form id="addTaskForm" class="content__form">
             <input type="text" class="content__input" id="addTaskInput" required>
             <button type="submit" id="addTaskSubmit">Submit</button>
@@ -26,7 +32,7 @@
             <li class="taskItem"><a class="taskName">Task 5</a></li>
         </ul>
     </section>
-    <footer id="footer"></footer>
+    <footer id="footer" class="container"></footer>
     <div id="taskEditModal">
         <h3 class="modal__title">Edit Task</h3>
         <label for="editTaskInput" class="modal__label">

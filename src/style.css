@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+/*  font-family: 'Roboto Condensed', sans-serif; */
+
 *, *::after, *::before{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 :root{
@@ -11,4 +15,28 @@
 body{
     width: 100vh;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+
+ul{
+    list-style: none;
+}
+
+#header{
+    padding: .75em;
+}
+
+#taskEditModal{
+    display: none;
 }
