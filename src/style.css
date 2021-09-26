@@ -129,6 +129,22 @@ ul{
     margin: .25em;
     width: clamp(300px, 100%, 600px);
     padding: 2em;
+    height: 500px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+#taskList::-webkit-scrollbar{
+    /* display: none; */
+    width: 10px;
+}
+
+#taskList::-webkit-scrollbar-track{
+    background: var(--background-color-main);
+}
+
+#taskList::-webkit-scrollbar-thumb{
+    background: var(--background-color-task);
 }
 
 .taskItem{

@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const howToUseCloseBtn = document.getElementById("htuBtn");
     const overlay = document.getElementById("overlay");
 
+
+    // Add JS functionality when list items length 
+    // is more than the height of the ul then make 
+    // overflow-y as scroll
     function showEditTaskModal(){
 
     }
