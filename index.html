@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List - Vanilla</title>
+    <link rel="icon" href="src/icon.jpg" />
     <link rel="stylesheet" href="src/style.css">
     <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" /> -->
     <link
@@ -14,23 +15,35 @@
     />
 </head>
 <body>
+
+    <!-- Header Section of To-Do List -->
+
     <header id="header" class="flex">
         <div class="container flex f-center">
             <h1 class="header__title">To-Do List</h1>
-            <!-- <form id="searchForm" class="content__form">
-                <input type="text" class="content__input" id="searchInput" placeholder="Search Tasks" >
-            </form> -->
         </div>
     </header>
+
+    <!--  Content Section of To-Do List -->
+
     <section id="content" class="flex f-direction-column f-center">
         <div class="container flex f-direction-column f-center">
+
+            <!-- Add Task Section of To-Do List -->
+
             <form id="addTaskForm" class="content__form flex f-center">
                 <input type="text" class="content__input" id="addTaskInput" placeholder="Add new task" required>
                 <button type="submit" id="addTaskSubmit" class="content__button">Add</button>
             </form>
+
+            <!-- Search Task Section of To-Do List -->
+
             <form id="searchForm" class="content__form">
                 <input type="text" class="content__input" id="searchInput" placeholder="Search Tasks" >
             </form>
+
+            <!-- Task Collection of To-Do List -->
+
             <ul id="taskList" class="flex f-direction-column f-center">
                 <li class="taskItem"><a class="taskName">Task 1</a><span class="task__cta"><i class="fas fa-edit"></i><i class="fas fa-trash-alt"></i></span></li>
                 <li class="taskItem"><a class="taskName">Task 2</a><span class="task__cta"><i class="fas fa-edit"></i><i class="fas fa-trash-alt"></i></span></li>
@@ -41,10 +54,16 @@
         </div>
     </section>
     <footer id="footer">
-        <div class="container">
-            <i class="fas fa-edit"></i>
+        <div class="container flex f-center">
+            <!-- Add footer on how to use and open a modal explaining -->
+            <ul id="footerNav" class="flex f-center f-direction-column">
+                <li class="footerItem"><a class="footerLink" id="howToUseLink">How to Use?</a></li>
+            </ul>
         </div>
     </footer>
+
+    <!-- Edit Task Modal  -->
+
     <div id="taskEditModal" class="flex f-direction-column f-center">
         <h2 class="modal__title">Edit Task</h2>
         <label for="editTaskInput" class="modal__label">
@@ -55,6 +74,29 @@
             <button id="closeBtn" class="content__button">Cancel</button>
         </div>
     </div>
+
+    <!-- How to use Modal for To-Do List -->
+
+    <div id="howToUse">
+        <h2 class="howToUse__title">How to Use?</h2>
+        <ul id="howToUse__list">
+            <li class="htu__item">Use the add task input to add new tasks.</li>
+            <li class="htu__item">
+                Search Existing Tasks with the search Task Input.
+            </li>
+            <li class="htu__item">
+                Simply click On the task to mark as completed. The Text will be strikethrough.
+            </li>
+            <li class="htu__item">
+                Click on the trash Icon <i class="fas fa-trash-alt"></i> to delete the task.
+            </li>
+            <li class="htu__item">Click on the Edit task Icon <i class="fas fa-edit"></i> to edit task name.</li>
+        </ul>
+        <center><button id="htuBtn" class="htu__btn content__button">Okay Got It!</button></center>
+    </div>
+
+    <!-- Overlay For Modals -->
+
     <div id="overlay"></div>
     <script src="src/app.js"></script>
 </body>

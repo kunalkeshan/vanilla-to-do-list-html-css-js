@@ -178,23 +178,24 @@ i.fa-trash-alt{
     color: rgb(0, 0, 0);
 }
 
-@keyframes add-in {
-    0%{
-        transform: scale(0);
-    }
-    100%{
-        transform: scale(1);
-    }
+/* Footer Styling */
+
+#footer{
+    position: absolute;
+    bottom: 0;
+    padding: 1em;
+    width: 100%;
 }
 
-@keyframes remove-out {
-    0%{
-        transform: scale(1);
-    }
-    100%{
-        transform: scale(0);
-    }
+.footerLink{
+    transition: all 250ms;
+    cursor: pointer;
 }
+
+.footerLink:hover{
+    text-decoration:underline;
+}
+
 
 
 /* Edit task modal styling */
@@ -236,6 +237,36 @@ i.fa-trash-alt{
     background: rgb(255, 0, 0);
 }
 
+/* How to Use Modal Styling */
+
+#howToUse{
+    display: none;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    inset: 50% auto auto 50%;
+    width: min(300px, 100%);
+    height: fit-content;
+    background: var(--background-color-accent);
+    border: solid 2px #fff;
+    border-radius: 10px;
+    z-index: 2;
+    color: var(--text-color-main);
+    justify-content: space-evenly;
+    padding: 1em;
+}
+
+#howToUse__list{
+    padding: .5em;
+    list-style: square;
+}
+
+.howToUse__title{
+    text-align: center;
+}
+
+.htu_list{
+    margin: 5px auto;
+}
 
 #overlay{
     display: none;
@@ -246,4 +277,24 @@ i.fa-trash-alt{
     inset: 50% auto auto 50%;
     background: #808080a2;
     z-index: 1;
+}
+
+/* Animations */
+
+@keyframes add-in {
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+@keyframes remove-out {
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(0);
+    }
 }
