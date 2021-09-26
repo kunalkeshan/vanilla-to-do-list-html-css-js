@@ -25,22 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
     //Global Modal Functions
     //Function to display the edit task modal
     function showEditTaskModal(){
-        editTaskModal.classList.toggle("add-in");
+        editTaskModal.classList.add("add-in");
         editTaskModal.style.display = "flex";
         overlay.style.display = "block";
     }
 
     //Function to display the how to use to do list modal
     function showHowToUseModal(){
-        howToUseModal.classList.toggle("add-in");
+        howToUseModal.classList.add("add-in");
         howToUseModal.style.display = "block";
         overlay.style.display = "block";
     }
 
     //Common function to hide all modals and overlay
     function HideAllModals(){
-        howToUseModal.classList.toggle("add-in");
-        editTaskModal.classList.toggle("add-in");
+        howToUseModal.classList.remove("add-in");
+        editTaskModal.classList.remove("add-in");
         editTaskModal.style.display = "none";
         howToUseModal.style.display = "none";
         overlay.style.display = "none";
