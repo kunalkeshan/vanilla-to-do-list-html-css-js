@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const addTaskForm = document.getElementById("addTaskForm");
     const searchTaskForm = document.getElementById("searchTaskForm");
 
+    //Input Fields
+    const addTaskInput = document.getElementById("addTaskInput");
+    const searchInput = document.getElementById("searchInput");
+
     //Task List
     const taskList = document.getElementById("taskList");
 
@@ -21,6 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const howToUseLink = document.getElementById("howToUseLink");
     const howToUseCloseBtn = document.getElementById("htuBtn");
     const overlay = document.getElementById("overlay");
+
+    //Check Local Storage if Tasks exist
+    if(!localStorage.getItem("tasks")){
+        localStorage.setItem("tasks", taskItems);
+    } else {
+    }
+
+
 
     //Global Modal Functions
     //Function to display the edit task modal
@@ -63,7 +75,56 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    checkListHeight()
+    function updateStorage(){
+        taskItems = document.querySelectorAll(".taskItem");
+        localStorage.setItem("tasks", taskItems)
+    }
+
+    function IconsAddFunctionality() {
+        const length = taskEditBtn.length;
+        for(let i = 0; i < length; i++){
+            taskEditBtn[i].addEventListener("click", () => {
+                showEditTaskModal();
+            })
+            taskDeleteBtn[i].addEventListener("click", () => {
+                alert("Working on it");
+            })
+        }
+    }
+
+    function createTask(taskName){
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        const span = document.createElement("span");
+        const deleteIcon = document.createElement("img");
+        const editIcon = document.createElement("img");
+
+        deleteIcon.className = "fas fas-trash-alt";
+        editIcon.className = "fas fas-edit";
+        deleteIcon.src = "src/images/bin.png";
+        editIcon.src = "src/images/edit.png";
+
+        li.className = "taskItem";
+        a.className = "taskName";
+        span.className = "task__cta";
+
+        a.innerHTML = taskName;
+        span.append(editIcon, deleteIcon);
+
+        li.append(a, span);
+        taskList.append(li);
+
+        checkListHeight();
+        IconsAddFunctionality();
+
+        // taskList.innerHTML = taskName;
+    }
+
+    function addTaskToList(){
+        const tasks = localStorage.getItem("tasks");
+        taskList.innerHTML = tasks;
+        checkListHeight();
+    }
 
 
     //Event listeners to invoke functions to display
@@ -89,6 +150,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     overlay.addEventListener("click", () =>{
         HideAllModals();
+    })
+
+
+    //When Task is added.
+    addTaskForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const taskName = addTaskInput.value;
+        createTask(taskName);
+        addTaskInput.value = "";
     })
 
 
