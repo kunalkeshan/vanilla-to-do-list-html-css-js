@@ -5,7 +5,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto Condensed', sans-serif;
 }
 
 :root{
@@ -20,6 +19,7 @@ body{
     width: 100%;
     height: 100vh;
     background: var(--background-color-accent);
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 /* Global Classes and Styling */
@@ -50,6 +50,34 @@ a{
 
 ul{
     list-style: none;
+}
+
+/* Animations */
+
+.add-in{
+    animation: add-in 500ms ease-in 1 forwards;
+}
+
+.remove-out{
+    animation: remove-out 500ms ease-in 1 forwards;
+}
+
+@keyframes add-in {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes remove-out {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
 }
 
 /* Header Styling */
@@ -129,6 +157,23 @@ ul{
     margin: .25em;
     width: clamp(300px, 100%, 600px);
     padding: 2em;
+    height: 400px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    justify-content: initial;
+}
+
+#taskList::-webkit-scrollbar{
+    /* display: none; */
+    width: 5px;
+}
+
+#taskList::-webkit-scrollbar-track{
+    background: var(--background-color-main);
+}
+
+#taskList::-webkit-scrollbar-thumb{
+    background: var(--background-color-task);
 }
 
 .taskItem{
@@ -140,8 +185,6 @@ ul{
     color: #fff;
     display: flex;
     justify-content: space-between;
-    /* animation: add-in 1s ease-in 1s 1 forwards; */
-    /* animation: remove-out 1s ease-in 1s 1 forwards; */
 }
 
 .taskItem:hover{
@@ -178,23 +221,24 @@ i.fa-trash-alt{
     color: rgb(0, 0, 0);
 }
 
-@keyframes add-in {
-    0%{
-        transform: scale(0);
-    }
-    100%{
-        transform: scale(1);
-    }
+/* Footer Styling */
+
+#footer{
+    position: absolute;
+    bottom: 0;
+    padding: 1em;
+    width: 100%;
 }
 
-@keyframes remove-out {
-    0%{
-        transform: scale(1);
-    }
-    100%{
-        transform: scale(0);
-    }
+.footerLink{
+    transition: all 250ms;
+    cursor: pointer;
 }
+
+.footerLink:hover{
+    text-decoration:underline;
+}
+
 
 
 /* Edit task modal styling */
@@ -236,6 +280,36 @@ i.fa-trash-alt{
     background: rgb(255, 0, 0);
 }
 
+/* How to Use Modal Styling */
+
+#howToUse{
+    display: none;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    inset: 50% auto auto 50%;
+    width: min(300px, 100%);
+    height: fit-content;
+    background: var(--background-color-accent);
+    border: solid 2px #fff;
+    border-radius: 10px;
+    z-index: 2;
+    color: var(--text-color-main);
+    justify-content: space-evenly;
+    padding: 1em;
+}
+
+#howToUse__list{
+    padding: .5em;
+    list-style: square;
+}
+
+.howToUse__title{
+    text-align: center;
+}
+
+.htu_list{
+    margin: 5px auto;
+}
 
 #overlay{
     display: none;
@@ -247,3 +321,6 @@ i.fa-trash-alt{
     background: #808080a2;
     z-index: 1;
 }
+
+
+
