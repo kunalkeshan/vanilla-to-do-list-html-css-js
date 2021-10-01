@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(!localStorage.getItem("tasks")){
         taskList = document.getElementById("taskList");
         localStorage.setItem("tasks", JSON.stringify(taskList.innerHTML));
+        IconsAddFunctionality();
     } else {
         updateTaskList();
         IconsAddFunctionality();
@@ -170,11 +171,13 @@ document.addEventListener("DOMContentLoaded", () => {
         taskItems = document.querySelectorAll(".taskItem")
         taskNames = document.querySelectorAll(".taskName");
         for(let i = 0; i < taskNames.length; i++){
-            let name = taskNames[i].innerHTML;
-            if(name.indexOf(filter) > -1){
+            let name = taskNames[i].innerHTML.toUpperCase();;
+            if(name.indexOf(filter.toUpperCase()) > -1){
                 taskItems[i].style.display = "flex";
+                checkListHeight();
             } else {
-                taskItems[i].style.display = "none";  
+                taskItems[i].style.display = "none"; 
+                checkListHeight(); 
             }
         }
     }
@@ -183,6 +186,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Event listeners to invoke functions to display
     //and hide the respective modals
+
+    taskItems.forEach(task => {
+        let taskName = task.firstElementChild;
+        taskName.addEventListener("click", () => {
+            let isCompleted = taskName.style.textDecoration === "line-through"
+            if(isCompleted){
+                taskName.style.textDecoration = "none";
+            } else {
+                taskName.style.textDecoration = "line-through";
+            }
+        updateStorage();
+        })
+    })
 
     taskEditBtn.forEach((editBtn) => {
         editBtn.addEventListener("click", () => {
@@ -216,26 +232,15 @@ document.addEventListener("DOMContentLoaded", () => {
     addTaskForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const taskName = addTaskInput.value;
-        createTask(taskName);
-        updateStorage();
-        IconsAddFunctionality();
-        addTaskInput.value = "";
+        if(taskName.length <= 50){
+            createTask(taskName);
+            updateStorage();
+            IconsAddFunctionality();
+            addTaskInput.value = "";
+        } else {
+            alert("Task name cannot be more that 50 Characters!");
+            addTaskInput.value = "";
+        }
     });
-
-    // editTaskForm.addEventListener("submit", (e) => {
-    //     e.preventDefault();
-    //     taskItems = document.querySelectorAll(".taskItem");
-    //     taskItems.forEach((task) => {
-    //         console.log(editTaskInput)
-    //         editedName = editTaskInput.value;
-    //         task.firstElementChild.innerHTML = editedName;
-    //         editTaskInput.value = "";
-    //         HideAllModals();
-    //         updateStorage();
-    //         updateTaskList();
-    //         return;
-    //     })
-    // })
-
 
 })
