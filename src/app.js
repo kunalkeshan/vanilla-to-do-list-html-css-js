@@ -47,10 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
         editTaskModal.classList.add("add-in");
         editTaskModal.style.display = "flex";
         overlay.style.display = "block";
+        editTaskInput.focus();
 
         taskItems = document.querySelectorAll(".taskItem");
         taskItems.forEach((task, index) => {
             if(index === taskIndex){
+                editTaskInput.value = task.firstElementChild.innerHTML
                 editTaskForm.addEventListener("submit", (e) => {
                     e.preventDefault();
                     editedName = editTaskInput.value;
