@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
     //Form Elements
     const addTaskForm = document.getElementById("addTaskForm");
+    const editTaskForm = document.getElementById("editTaskForm")
     const searchTaskForm = document.getElementById("searchTaskForm");
 
     //Input Fields
@@ -8,15 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
     const editTaskInput = document.getElementById("editTaskInput");
 
-
     //Task List
     let taskList = document.getElementById("taskList");
 
     //Task List Items
     let taskItems = document.querySelectorAll(".taskItem");
     let taskNames = document.querySelectorAll(".taskName")
-    let taskEditBtn = document.querySelectorAll(".taskItem .fa-edit ");
-    let taskDeleteBtn = document.querySelectorAll(".taskItem .fa-trash-alt");
+    let taskEditBtn = document.querySelectorAll(".edit-icon ");
+    let taskDeleteBtn = document.querySelectorAll(".trash-icon");
 
     //Edit Task Modal Elements
     const editTaskModal = document.getElementById("taskEditModal");
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("tasks", JSON.stringify(taskList.innerHTML));
     } else {
         updateTaskList();
+        IconsAddFunctionality();
     }
 
 
@@ -46,34 +48,22 @@ document.addEventListener("DOMContentLoaded", () => {
         editTaskModal.style.display = "flex";
         overlay.style.display = "block";
 
-        editTaskBtn.addEventListener("click", () => {
-            taskItems = document.querySelectorAll(".taskItem");
-            taskItems.forEach((task, index) => {
-                if(index === taskIndex){
-                    editedName = editTaskInput.value;
-                    task.children[0].innerHTML = editedName;
-                    editTaskInput.value = "";
-                    HideAllModals();
-                    updateStorage();
-                    return;
-                }
-            })
-        })
-
-    }
-
-    //Function that deletes the selected task
-    function deleteTask(taskIndex){
         taskItems = document.querySelectorAll(".taskItem");
         taskItems.forEach((task, index) => {
             if(index === taskIndex){
-                task.remove();
-                checkListHeight();
-                updateStorage();
-                updateTaskList();
-                return;
+                editTaskForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    editedName = editTaskInput.value;
+                    if(editedName){
+                        task.firstElementChild.innerHTML = editedName;
+                        HideAllModals();
+                        updateStorage();
+                        editTaskInput.value = "";
+                        return;
+                    }
+                })
             }
-        })
+        });
     }
 
     //Function to display the how to use to do list modal
@@ -106,6 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         if(itemsHeight > listHeight){
             taskList.style.overflowY = "scroll";
+        } else {
+            taskList.style.overflowY = "hidden";
         }
     }
     
@@ -119,23 +111,29 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateTaskList(){
         taskItems = JSON.parse(localStorage.getItem("tasks"));
         taskList.innerHTML = taskItems;
-        IconsAddFunctionality();
         checkListHeight();
     }
 
     function IconsAddFunctionality() {
         taskItems = document.querySelectorAll(".taskItem");
-
+        taskEditBtn = document.querySelectorAll(".edit-icon");    
+        taskDeleteBtn = document.querySelectorAll(".trash-icon");
+        
+        // console.log(taskEditBtn, taskDeleteBtn, taskItems);
+        
         taskItems.forEach((task, index) => {
-            const deleteIcon = task.children[1].children[1];
-            const editIcon = task.children[1].children[0];
+            const editIcon = task.lastElementChild.firstElementChild;
+            const deleteIcon = task.lastElementChild.lastElementChild;
 
             editIcon.addEventListener("click", () => {
                 showEditTaskModal(index);
-            })
+            });
             
             deleteIcon.addEventListener("click", () => {
-                deleteTask(index);
+                    task.remove();
+                    checkListHeight();
+                    updateStorage();                    
+                    return;
             });
 
         });
@@ -148,8 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const deleteIcon = document.createElement("img");
         const editIcon = document.createElement("img");
 
-        deleteIcon.className = "fas fas-trash-alt";
-        editIcon.className = "fas fas-edit";
+        deleteIcon.className = "trash-icon";
+        editIcon.className = "edit-icon";
         deleteIcon.src = "src/images/bin.png";
         editIcon.src = "src/images/edit.png";
 
@@ -217,10 +215,25 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const taskName = addTaskInput.value;
         createTask(taskName);
-        IconsAddFunctionality();
         updateStorage();
+        IconsAddFunctionality();
         addTaskInput.value = "";
-    })
+    });
+
+    // editTaskForm.addEventListener("submit", (e) => {
+    //     e.preventDefault();
+    //     taskItems = document.querySelectorAll(".taskItem");
+    //     taskItems.forEach((task) => {
+    //         console.log(editTaskInput)
+    //         editedName = editTaskInput.value;
+    //         task.firstElementChild.innerHTML = editedName;
+    //         editTaskInput.value = "";
+    //         HideAllModals();
+    //         updateStorage();
+    //         updateTaskList();
+    //         return;
+    //     })
+    // })
 
 
 })

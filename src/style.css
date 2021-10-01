@@ -209,7 +209,7 @@ ul{
     transform: scale(1.1);
 }
 
-.task__cta > i:active{
+.task__cta > img:active{
     transform: scale(1.2);
 }
 
@@ -251,12 +251,18 @@ ul{
     padding: 1em;
 }
 
+.edit-form{
+    width: 100%;
+}
+
 .modal__title{
     font-size: 2rem;
 }
 
 .modal__label{
-    width: clamp(200px, 100%, 280px)
+    width: clamp(200px, 100%, 280px);
+    display: inline-block;
+    margin: 1em auto;
 }
 
 .modal__input{
