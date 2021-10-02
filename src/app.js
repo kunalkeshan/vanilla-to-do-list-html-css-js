@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         task.firstElementChild.innerHTML = editedName;
                         HideAllModals();
                         updateStorage();
+                        completeTaskOnClick();
                         editTaskInput.value = "";
                         return;
                     }
