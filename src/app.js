@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 editTaskForm.addEventListener("submit", (e) => {
                     e.preventDefault();
                     editedName = editTaskInput.value;
-                    if(editedName <= 50){
+                    if(editedName){
                         task.firstElementChild.innerHTML = editedName;
                         HideAllModals();
                         updateStorage();
