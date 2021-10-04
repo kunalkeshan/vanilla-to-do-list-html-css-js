@@ -69,10 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         completeTaskOnClick();
                         editTaskInput.value = "";
                         return;
-                    } else {
-                        alert("Task name cannot be more than 50 Characters!");
-                        editTaskInput.value = task.firstElementChild.innerHTML;
-                        editTaskInput.focus();
                     }
                 });
             }
