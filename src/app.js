@@ -62,13 +62,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 editTaskForm.addEventListener("submit", (e) => {
                     e.preventDefault();
                     editedName = editTaskInput.value;
-                    if(editedName){
+                    if(editedName <= 50){
                         task.firstElementChild.innerHTML = editedName;
                         HideAllModals();
                         updateStorage();
                         completeTaskOnClick();
                         editTaskInput.value = "";
                         return;
+                    } else {
+                        alert("Task name cannot be more than 50 Characters!");
+                        editTaskInput.value = task.firstElementChild.innerHTML;
+                        editTaskInput.focus();
                     }
                 });
             }
