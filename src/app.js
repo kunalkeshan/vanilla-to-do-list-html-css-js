@@ -174,20 +174,23 @@ document.addEventListener("DOMContentLoaded", () => {
         checkListHeight();
     }
 
-    //Search through existing tasks
+    //Search through existing tasks, use Regular Expression test method to check is the search input
+    //pattern matches the input pattern
     function searchTasks(filter){
         taskItems = document.querySelectorAll(".taskItem")
         taskNames = document.querySelectorAll(".taskName");
-        for(let i = 0; i < taskNames.length; i++){
-            let name = taskNames[i].innerHTML.toUpperCase();;
-            if(name.indexOf(filter.toUpperCase()) > -1){
-                taskItems[i].style.display = "flex";
-                checkListHeight();
+
+        taskNames.forEach((task, index) => {
+            let taskName = task.innerHTML;
+            let taskNameRegExp = new RegExp(filter, "ig")
+            let exists = taskNameRegExp.test(taskName);
+            if(exists){
+                taskItems[index].style.display = "flex";
             } else {
-                taskItems[i].style.display = "none"; 
-                checkListHeight(); 
+                taskItems[index].style.display = "none";
             }
-        }
+            checkListHeight();
+        })
     }
 
     //Adds a line-through when task is clicked and removes it 
