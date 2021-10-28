@@ -59,18 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         taskItems.forEach((task, index) => {
             if(index === taskIndex){
                 editTaskInput.value = task.firstElementChild.innerHTML
-                editTaskForm.addEventListener("submit", (e) => {
-                    e.preventDefault();
-                    editedName = editTaskInput.value;
-                    if(editedName){
-                        task.firstElementChild.innerHTML = editedName;
-                        HideAllModals();
-                        updateStorage();
-                        completeTaskOnClick();
-                        editTaskInput.value = "";
-                        return;
-                    }
-                });
+                editTaskForm.addEventListener("submit", (e) => editTask(e, editTaskInput, task));
             }
         });
     }
@@ -193,14 +182,27 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
+    function editTask(e, editTaskInput, task) {
+        e.preventDefault();
+        const editedValue = editTaskInput.value;
+        if(editedValue){
+            task.firstElementChild.innerHTML = editedValue;
+            HideAllModals();
+            updateStorage();
+            completeTaskOnClick();
+            editTaskInput.value = "";
+            return;
+        }
+    }
+
     //Adds a line-through when task is clicked and removes it 
     //again if line-through exists.
     function completeTaskOnClick(){
         taskItems = document.querySelectorAll(".taskItem");
         taskItems.forEach(task => {
-            let taskName = task.firstElementChild;
+            const taskName = task.firstElementChild;
             taskName.addEventListener("click", () => {
-                let isCompleted = taskName.style.textDecoration === "line-through"
+                const isCompleted = taskName.style.textDecoration === "line-through"
                 if(isCompleted){
                     taskName.style.textDecoration = "none";
                 } else {
