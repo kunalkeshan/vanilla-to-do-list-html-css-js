@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    checkListHeight()
+    checkListHeight();
 
 
     //Event listeners to invoke functions to display
