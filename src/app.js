@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     //Form Elements
     const addTaskForm = document.getElementById("addTaskForm");
     const editTaskForm = document.getElementById("editTaskForm")
-    const searchTaskForm = document.getElementById("searchTaskForm");
 
     //Input Fields
     const addTaskInput = document.getElementById("addTaskInput");
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let taskItems = document.querySelectorAll(".taskItem");
     let taskNames = document.querySelectorAll(".taskName")
     let taskEditBtn = document.querySelectorAll(".edit-icon ");
-    let taskDeleteBtn = document.querySelectorAll(".trash-icon");
 
     //Edit Task Modal Elements
     const editTaskModal = document.getElementById("taskEditModal");
@@ -33,16 +31,16 @@ document.addEventListener("DOMContentLoaded", () => {
     //Check Local Storage if Tasks exist, if it does not, 
     //create new local storage, and add functionality to dom tasks.
     //if does exist, update from local storage and add functionality.
-    if(!localStorage.getItem("tasks")){
-        taskList = document.getElementById("taskList");
-        localStorage.setItem("tasks", JSON.stringify(taskList.innerHTML));
+    (function(){
+        if(!localStorage.getItem("tasks")){
+            taskList = document.getElementById("taskList");
+            localStorage.setItem("tasks", JSON.stringify(taskList.innerHTML));
+        } else {
+            updateTaskList()
+        }
         IconsAddFunctionality();
         completeTaskOnClick();
-    } else {
-        updateTaskList();
-        IconsAddFunctionality();
-        completeTaskOnClick();
-    }
+    })();
 
 
 
@@ -139,26 +137,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Create Task Function.
     function createTask(taskName){
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        const span = document.createElement("span");
-        const deleteIcon = document.createElement("img");
-        const editIcon = document.createElement("img");
-
-        deleteIcon.className = "trash-icon";
-        editIcon.className = "edit-icon";
-        deleteIcon.src = "src/images/bin.png";
-        editIcon.src = "src/images/edit.png";
-
-        li.className = "taskItem";
-        a.className = "taskName";
-        span.className = "task__cta";
-
-        a.innerHTML = taskName;
-        span.append(editIcon, deleteIcon);
-
-        li.append(a, span);
-        taskList.append(li);
+        const card = ` 
+            <li class="taskItem">
+                <a class="taskName">${taskName}</a>
+                <span class="task__cta">
+                    <img src="src/images/edit.png" class="edit-icon">
+                    <img src="src/images/bin.png" class="trash-icon">
+                </span>
+            </li>`
+        taskList.innerHTML += card;
 
         checkListHeight();
     }
@@ -185,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function editTask(e, editTaskInput, task) {
         e.preventDefault();
         const editedValue = editTaskInput.value;
-        if(editedValue){
+        if(editedValue <= 50){
             task.firstElementChild.innerHTML = editedValue;
             HideAllModals();
             updateStorage();
@@ -193,24 +180,26 @@ document.addEventListener("DOMContentLoaded", () => {
             editTaskInput.value = "";
             return;
         }
+        alert("Task Name cannot be more than 50 Characters!");
+        HideAllModals();
     }
 
     //Adds a line-through when task is clicked and removes it 
     //again if line-through exists.
     function completeTaskOnClick(){
-        taskItems = document.querySelectorAll(".taskItem");
-        taskItems.forEach(task => {
-            const taskName = task.firstElementChild;
-            taskName.addEventListener("click", () => {
-                const isCompleted = taskName.style.textDecoration === "line-through"
-                if(isCompleted){
-                    taskName.style.textDecoration = "none";
-                } else {
-                    taskName.style.textDecoration = "line-through";
-                }
-            updateStorage();
+            taskItems = document.querySelectorAll(".taskItem");
+            taskItems.forEach(task => {
+                const taskName = task.firstElementChild;
+                taskName.addEventListener("click", () => {
+                    const isCompleted = taskName.style.textDecoration === "line-through"
+                    if(isCompleted){
+                        taskName.style.textDecoration = "none";
+                    } else {
+                        taskName.style.textDecoration = "line-through";
+                    }
+                });
             });
-        });
+            updateStorage();
     }
 
     //Show all tasks after editing, or updating the search.
