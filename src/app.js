@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Edit Task Modal Elements
     const editTaskModal = document.getElementById("taskEditModal");
-    const editTaskBtn = document.getElementById("editBtn");
     const closeEditTaskBtn = document.getElementById("closeBtn");
 
     //How to Use To-Do list Elements
