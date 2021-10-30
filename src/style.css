@@ -309,6 +309,11 @@ ul{
     margin: 5px auto;
 }
 
+#howToUse img {
+    width: 15px;
+    height: 15px;
+}
+
 #overlay{
     display: none;
     width: 100vw;
