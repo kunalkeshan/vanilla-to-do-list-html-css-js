@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         taskItems = document.querySelectorAll(".taskItem");
         taskItems.forEach((task, index) => {
             if(index === taskIndex){
-                editTaskInput.value = task.firstElementChild.innerHTML
+                editTaskInput.value = task.firstElementChild.innerHTML;
                 editTaskForm.addEventListener("submit", (e) => editTask(e, editTaskInput, task));
             }
         });
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function editTask(e, editTaskInput, task) {
         e.preventDefault();
         const editedValue = editTaskInput.value;
-        if(editedValue <= 50){
+        if(editedValue.length <= 50){
             task.firstElementChild.innerHTML = editedValue;
             HideAllModals();
             updateStorage();
