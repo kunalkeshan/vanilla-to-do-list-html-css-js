@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     //Form Elements
     const addTaskForm = document.getElementById("addTaskForm");
-    const editTaskForm = document.getElementById("editTaskForm")
+    const editTaskForm = document.getElementById("editTaskForm");
 
     //Input Fields
     const addTaskInput = document.getElementById("addTaskInput");
@@ -145,7 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 </span>
             </li>`
         taskList.innerHTML += card;
-
         checkListHeight();
     }
 
@@ -196,9 +195,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     } else {
                         taskName.style.textDecoration = "line-through";
                     }
+                    updateStorage();
                 });
             });
-            updateStorage();
     }
 
     //Show all tasks after editing, or updating the search.
