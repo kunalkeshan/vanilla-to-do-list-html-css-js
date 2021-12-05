@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //Check Local Storage if Tasks exist, if it does not, 
     //create new local storage, and add functionality to dom tasks.
     //if does exist, update from local storage and add functionality.
-    (function(){
+    document.addEventListener("DOMContentLoaded", () => {
         if(!localStorage.getItem("tasks")){
             taskList = document.getElementById("taskList");
             localStorage.setItem("tasks", JSON.stringify(taskList.innerHTML));
@@ -39,14 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         IconsAddFunctionality();
         completeTaskOnClick();
-    })();
-
+    })
 
 
     //Global Modal Functions.
 
     //Function to display the edit task modal.
-    function showEditTaskModal(taskIndex){
+    const showEditTaskModal = (taskIndex) => {
         editTaskModal.classList.add("add-in");
         editTaskModal.style.display = "flex";
         overlay.style.display = "block";
@@ -62,14 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //Function to display the how to use to do list modal.
-    function showHowToUseModal(){
+    const showHowToUseModal = () => {
         howToUseModal.classList.add("add-in");
         howToUseModal.style.display = "block";
         overlay.style.display = "block";
     }
 
     //Common function to hide all modals and overlay.
-    function HideAllModals(){
+    const HideAllModals = () => {
         howToUseModal.classList.remove("add-in");
         editTaskModal.classList.remove("add-in");
         editTaskModal.style.display = "none";
@@ -79,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Function to check list height, and add scroll 
     //if item height is more than list height.
-    function checkListHeight(){
+    const checkListHeight = () => {
         taskItems = document.querySelectorAll(".taskItem");
         const listHeight = taskList.offsetHeight;
         let itemsHeight = 0;
@@ -97,21 +96,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     //To Update Tasks locally and recover in case of reload.
-    function updateStorage(){
+    const updateStorage = () => {
         displayAllTasks();
         taskList = document.getElementById("taskList")
         localStorage.setItem("tasks", JSON.stringify(taskList.innerHTML));
     }
     
     //Add tasks from local storage to list.
-    function updateTaskList(){
+    const updateTaskList = () => {
         taskItems = JSON.parse(localStorage.getItem("tasks"));
         taskList.innerHTML = taskItems;
         checkListHeight();
     }
 
     //Add Functionality to the edit and delete icons.
-    function IconsAddFunctionality() {
+    const IconsAddFunctionality = () => {
         taskItems = document.querySelectorAll(".taskItem");
         taskEditBtn = document.querySelectorAll(".edit-icon");    
         taskDeleteBtn = document.querySelectorAll(".trash-icon");
@@ -135,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //Create Task Function.
-    function createTask(taskName){
+    const createTask = (taskName) => {
         const card = ` 
             <li class="taskItem">
                 <a class="taskName">${taskName}</a>
@@ -150,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Search through existing tasks, use Regular Expression test method to check is the search input
     //pattern matches the input pattern
-    function searchTasks(filter){
+    const searchTasks = (filter) => {
         taskItems = document.querySelectorAll(".taskItem")
         taskNames = document.querySelectorAll(".taskName");
 
@@ -167,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
-    function editTask(e, editTaskInput, task) {
+    const editTask = (e, editTaskInput, task) => {
         e.preventDefault();
         const editedValue = editTaskInput.value;
         if(editedValue.length <= 50){
@@ -184,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Adds a line-through when task is clicked and removes it 
     //again if line-through exists.
-    function completeTaskOnClick(){
+    const completeTaskOnClick = () => {
             taskItems = document.querySelectorAll(".taskItem");
             taskItems.forEach(task => {
                 const taskName = task.firstElementChild;
@@ -201,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //Show all tasks after editing, or updating the search.
-    function displayAllTasks(){
+    const displayAllTasks = () => {
         taskItems = document.querySelectorAll(".taskItem");
         taskItems.forEach((task) => {
             task.style.display = "flex";
