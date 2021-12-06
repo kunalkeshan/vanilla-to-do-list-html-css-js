@@ -56,6 +56,8 @@ const showEditTaskModal = (taskIndex) => {
             editTaskForm.addEventListener("submit", (e) => editTask(e, editTaskInput, task));
         }
     });
+
+    
 }
 
 //Function to display the how to use to do list modal.
@@ -296,7 +298,10 @@ class Task {
     }
 
     deleteTask(){
-        console.log("task deleted")
+        this.task.remove();
+        checkListHeight();
+        updateStorage();                    
+        return;
     }
 
     editTask(){
