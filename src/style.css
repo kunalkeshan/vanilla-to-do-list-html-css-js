@@ -58,25 +58,12 @@ ul{
     animation: add-in 500ms ease-in 1 forwards;
 }
 
-.remove-out{
-    animation: remove-out 500ms ease-in 1 forwards;
-}
-
 @keyframes add-in {
     0%{
         opacity: 0;
     }
     100%{
         opacity: 1;
-    }
-}
-
-@keyframes remove-out {
-    0%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0;
     }
 }
 
@@ -306,6 +293,11 @@ ul{
 
 .htu_list{
     margin: 5px auto;
+}
+
+#howToUse img {
+    width: 15px;
+    height: 15px;
 }
 
 #overlay{
