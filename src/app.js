@@ -31,7 +31,7 @@ const overlay = document.getElementById("overlay");
 document.addEventListener("DOMContentLoaded", () => {
     if(!localStorage.getItem("tasks")){
         taskList = document.getElementById("taskList");
-        localStorage.setItem("tasks", JSON.stringify(taskList.innerHTML));
+        localStorage.setItem("tasks", taskList.innerHTML);
     } else updateTaskList()
     
 })
@@ -67,6 +67,7 @@ const HideAllModals = () => {
 //Function to check list height, and add scroll 
 //if item height is more than list height.
 const checkListHeight = () => {
+    taskList = document.getElementById("taskList")
     taskItems = document.querySelectorAll(".taskItem");
     const listHeight = taskList.offsetHeight;
     let itemsHeight = 0;
@@ -83,27 +84,27 @@ const checkListHeight = () => {
 //To Update Tasks locally and recover in case of reload.
 const updateStorage = () => {
     displayAllTasks();
-    taskList = document.getElementById("taskList");
-    console.log(taskList)
-    localStorage.setItem("tasks", JSON.stringify(taskList.innerHTML));
+    taskList = document.getElementById("taskList").innerHTML;
+    localStorage.setItem("tasks", taskList); 
 }
 
 //Add tasks from local storage to list.
 const updateTaskList = () => {
     taskList.innerHTML = "";
-    taskItems = JSON.parse(localStorage.getItem("tasks"));
+    taskItems = localStorage.getItem("tasks");
     const div = document.createElement("div");
     div.innerHTML = taskItems;
     taskItems = div.querySelectorAll("li");
     taskItems.forEach((task) => {
-        createTask(task.firstElementChild.innerHTML)
+        createTask(task.firstElementChild.innerHTML, task.firstElementChild.style)
     })    
     checkListHeight();
 }
 
 //Create Task Function.
-const createTask = (taskName) => {
-    const card = new Task(taskName);
+const createTask = (taskName, taskNameStyles) => {
+    taskList = document.getElementById("taskList")
+    const card = new Task(taskName, taskNameStyles);
     taskList.append(card.task)
     checkListHeight();
 }
@@ -192,7 +193,7 @@ addTaskForm.addEventListener("submit", (e) => {
 });
 
 class Task {
-    constructor(taskName){
+    constructor(taskName, taskNameStyles){
         const div = document.createElement("div");
         div.innerHTML = `<li class="taskItem">
                             <a class="taskName">${taskName}</a>
@@ -203,9 +204,10 @@ class Task {
                         </li>`;
         this.task = div.firstChild;
         this.taskName = this.task.querySelector(".taskName");
+        if(taskNameStyles) this.taskName.style.textDecoration = taskNameStyles.textDecoration
         this.editBtn = this.task.querySelector(".edit-icon");
         this.deleteBtn = this.task.querySelector(".trash-icon");
-        this.editBtn.addEventListener("click", () => this.editTask())
+        this.editBtn.addEventListener("click", () => showEditTaskModal(this.taskName))
         this.deleteBtn.addEventListener("click", () => this.deleteTask())
         this.taskName.addEventListener("click", () => this.completeTask())
     }
@@ -215,10 +217,6 @@ class Task {
         updateStorage();                    
         return;
     }
-    editTask(){
-        console.log(this.taskName.innerHTML)
-        showEditTaskModal(this.taskName)
-    }
     completeTask(){
         const isCompleted = this.taskName.style.textDecoration === "line-through"
         if(isCompleted) this.taskName.style.textDecoration = "none";
@@ -226,8 +224,3 @@ class Task {
         updateStorage();
     }
 }
-
-const myTask = new Task("My Task");
-console.log(myTask)
-
-document.lastElementChild.append(myTask.task);
