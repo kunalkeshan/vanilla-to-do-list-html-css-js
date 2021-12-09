@@ -13,7 +13,7 @@ let taskList = document.getElementById("taskList");
 //Task List Items
 let taskItems = document.querySelectorAll(".taskItem");
 let taskNames = document.querySelectorAll(".taskName")
-let taskEditBtn = document.querySelectorAll(".edit-icon ");
+let taskEditBtn = document.querySelectorAll(".edit-icon");
 
 //Edit Task Modal Elements
 const editTaskModal = document.getElementById("taskEditModal");
@@ -29,16 +29,12 @@ const overlay = document.getElementById("overlay");
 //create new local storage, and add functionality to dom tasks.
 //if does exist, update from local storage and add functionality.
 document.addEventListener("DOMContentLoaded", () => {
-    if(!localStorage.getItem("tasks")){
-        taskList = document.getElementById("taskList");
-        localStorage.setItem("tasks", taskList.innerHTML);
-    } else updateTaskList()
-    
+    if(localStorage.getItem("tasks")) return updateTaskList();
+    taskList = document.getElementById("taskList");
+    localStorage.setItem("tasks", taskList.innerHTML);
 })
 
-
 //Global Modal Functions.
-
 const showEditTaskModal = (taskName) => {
     editTaskModal.classList.add("add-in");
     editTaskModal.style.display = "flex";
@@ -77,8 +73,7 @@ const checkListHeight = () => {
         let marginY = parseInt(marginTop) + parseInt(marginBottom);
         itemsHeight += item.offsetHeight + marginY;
     });
-    if(itemsHeight > listHeight) taskList.style.overflowY = "scroll";
-    else taskList.style.overflowY = "hidden";
+    taskList.style.overflowY = (itemsHeight > listHeight) ? "scroll" : "hidden";
 }
 
 //To Update Tasks locally and recover in case of reload.
@@ -115,11 +110,9 @@ const searchTasks = (filter) => {
     taskItems = document.querySelectorAll(".taskItem")
     taskNames = document.querySelectorAll(".taskName");
     taskNames.forEach((task, index) => {
-        let taskName = task.innerHTML;
         let taskNameRegExp = new RegExp(filter, "ig")
-        let exists = taskNameRegExp.test(taskName);
-        if(exists)taskItems[index].style.display = "flex";
-        else taskItems[index].style.display = "none";
+        let exists = taskNameRegExp.test(task.innerHTML);
+        taskItems[index].style.display = exists ? "flex" : "none";
         checkListHeight();
     })
 }
@@ -141,13 +134,10 @@ const editTask = (e, editTaskInput, taskName) => {
 //Show all tasks after editing, or updating the search.
 const displayAllTasks = () => {
     taskItems = document.querySelectorAll(".taskItem");
-    taskItems.forEach((task) => {
-        task.style.display = "flex";
-    });
+    taskItems.forEach((task) => task.style.display = "flex");
     checkListHeight();
     searchInput.value = "";
 }
-
 
 //Event listeners to invoke functions to display
 //and hide the respective modals
@@ -172,9 +162,7 @@ overlay.addEventListener("click", () => HideAllModals());
 //is typed on the search input.
 searchInput.addEventListener("keyup", (e) => {
     let value = e.target.value;
-    if(value) searchTasks(value);
-    else displayAllTasks();
-    
+    value ? searchTasks(value) : displayAllTasks();
 });
 
 //When Task is added add the task to list,
@@ -204,7 +192,7 @@ class Task {
                         </li>`;
         this.task = div.firstChild;
         this.taskName = this.task.querySelector(".taskName");
-        if(taskNameStyles) this.taskName.style.textDecoration = taskNameStyles.textDecoration
+        taskNameStyles ? this.taskName.style.textDecoration = taskNameStyles.textDecoration : ""
         this.editBtn = this.task.querySelector(".edit-icon");
         this.deleteBtn = this.task.querySelector(".trash-icon");
         this.editBtn.addEventListener("click", () => showEditTaskModal(this.taskName))
@@ -214,13 +202,11 @@ class Task {
     deleteTask(){
         this.task.remove();
         checkListHeight();
-        updateStorage();                    
-        return;
+        updateStorage();
     }
     completeTask(){
-        const isCompleted = this.taskName.style.textDecoration === "line-through"
-        if(isCompleted) this.taskName.style.textDecoration = "none";
-        else this.taskName.style.textDecoration = "line-through";
+        const isCompleted = this.taskName.style.textDecoration === "line-through";
+        this.taskName.style.textDecoration = isCompleted ? "none" : "line-through";
         updateStorage();
     }
 }
